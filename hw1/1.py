@@ -16,27 +16,27 @@ genres = {'эпический жанр': {'эпопея': {'Толстой': ["�
                                              'Чехов': ["Вишневый сад", "Чайка"]},
                                  'трагедия': {'Шекспир': ["Гамлет"], 'Тургенев': ["Муму"]}}}
 def search(geners):
-    for gener in geners:
-        if type(geners[gener]) == list:
-            print(f"Автор вашей книги - {gener}?")
+    for genre in geners:
+        if type(geners[genre]) == list:
+            print(f"Автор вашей книги - {genre}?")
             if input().lower() == "да":
-                for book in geners[gener]:
+                for book in geners[genre]:
                     print(f"это ваша книга - {book}?")
                     if input().lower() == "да":
                         return
                 break
 
         else:
-            print(f"ваша книга относится к {gener}?")
+            print(f"ваша книга относится к {genre}?")
             if input().lower() == "да":
-                search(geners[gener])
+                search(geners[genre])
                 break
 
 
 
-for gener in genres:
-    for gener_1 in genres[gener]:
-        for book in genres[gener][gener_1].values():
+for genre in genres:
+    for genre_1 in genres[genre]:
+        for book in genres[genre][genre_1].values():
             print("\n".join(book))
 
 print("Выберите одну книгу из предложенных!")
