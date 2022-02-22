@@ -25,6 +25,7 @@ def search(geners):
                 for book in geners[genre]:
                     print(f"Это ваша книга - {book}?")
                     if input().lower() == "да":
+                        print('Ответ:', book)
                         return
                 break
 
