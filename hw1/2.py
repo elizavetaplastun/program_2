@@ -4,7 +4,7 @@
 # Обратите внимание, что цифры могут попадать в несколько категорий
 
 # пример входных данных:
-# 1,2,3,-6,-7.5,3*i-7,i,0.98,i,i,3*i-7,-400.78299,837826287.97,113,9,-15
+# 1,2,3,-6,-7.5,3*i-7,i,0.98,i,i,3*i-7,-400.78299,837826287.97,113,9,-15,-7,113,7
 # 1,2,3.454,4*i-2,-400.90087,2-5*i
 
 def sortNumbers(numbers, symbol, new):
@@ -43,13 +43,14 @@ for number in integerNumbers:
 print('Even numbers:\n', ' '.join(evenNumbers))
 print('Odd numbers:\n', ' '.join(oddNumbers))
 
-# for number in integerNumbers:
-#     if int(number) < 2:
-#         break
-#     for i in range(2, int(int(number) ** 0.5 + 1)):
-#         if int(number) % i == 0:
-#             break
-#     else:
-#         primeNumbers.append(number)
-#
-# print('Prime numbers:\n', ' '.join(primeNumbers))
+for number in integerNumbers:
+    if int(number) > 1:
+        for i in range(2, int(number)):
+            if (int(number) % i) == 0:
+                break
+        else:
+            primeNumbers.append(number)
+    else:
+        continue
+
+print('Prime numbers:\n', ' '.join(primeNumbers))
