@@ -43,7 +43,7 @@ for number in integerNumbers:
 print('Even numbers:\n', ' '.join(evenNumbers))
 print('Odd numbers:\n', ' '.join(oddNumbers))
 
-for number in integerNumbers:
+for number in naturalNumbers:
     if int(number) > 1:
         for i in range(2, int(number)):
             if (int(number) % i) == 0:
