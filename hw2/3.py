@@ -32,4 +32,4 @@ for i in range(n):
 # print('Expected value and dispersion in which row do you want to count?')
 # row = int(input())
 # print('expected value =', expectationSearch(randomVariables[row-1]),
-#       '\ndispersion =', dispersionSearch(randomVariables[row-1], expectationSearch(randomVariables[row-1])))
+#       '\n dispersion =', dispersionSearch(randomVariables[row-1], expectationSearch(randomVariables[row-1])))
