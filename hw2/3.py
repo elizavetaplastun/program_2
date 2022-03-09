@@ -3,7 +3,6 @@ from tabulate import tabulate
 
 
 def expectationSearch(array):
-    # expected_value = probability * sum(array)
     expected_value = 0
     for x in array:
         expected_value += probability * x
@@ -26,8 +25,8 @@ print('resulting table:')
 print(tabulate(randomVariables))
 
 for i in range(n):
-    print(f'{i+1} row:\nexpected value =', expectationSearch(randomVariables[i]),
-          '\ndispersion =', dispersionSearch(randomVariables[i], expectationSearch(randomVariables[i])))
+    print(f'{i+1} row:\nexpected value =', format(expectationSearch(randomVariables[i]), '.3f'),
+          '\ndispersion =', format(dispersionSearch(randomVariables[i], expectationSearch(randomVariables[i])), '.3f'))
 
 # print('Expected value and dispersion in which row do you want to count?')
 # row = int(input())
