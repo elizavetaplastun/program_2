@@ -14,7 +14,7 @@ def gnome_sort(arr):
     N = len(arr)
     i = 1
     while i < N:
-        if (arr[i - 1] <= arr[i]):
+        if arr[i - 1] <= arr[i]:
             i += 1
         else:
             tmp = arr[i]
