@@ -45,7 +45,9 @@ for company in companies.keys():
                     break
 
 file = open("companies", "w")
+file.write("f\n")
 file_2016 = open("companies_2016", "w")
+file_2016.write("f\n")
 for company in companies_2016:
     file_2016.write(company + '\n')
     file_2016.write(str(companies_2016[company][0]) + "\n")
