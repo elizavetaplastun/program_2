@@ -159,6 +159,8 @@ def sale(arr_buy, day):
     return n
 
 
+money_file = open("money", "a")
+money = [10000000]
 n = 10000000
 for i in range(5):
     if i == 0:
@@ -169,9 +171,14 @@ for i in range(5):
         h = corel_second(companies, companies_names, i)
         arr = anatol(h, companies_names, i, i)
         s = sale(b, i)
+        money.append(s)
     else:
         h = corel_second(companies, companies_names, i)
         arr = anatol(h, companies_names, i, i)
         s = sale(b, i)
+        money.append(s)
         b = buy(arr, s, i)
+
+money_file.write(" ".join(list(map(str, money)))+"\n")
+money_file.close()
 print(s)

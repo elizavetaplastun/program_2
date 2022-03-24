@@ -66,7 +66,9 @@ def sale(arr_buy, month):
         n += companies[names[i]][1][month][0] * actions[i]
     return n
 
-
+money_file = open("money", "a")
+money = [10000000]
+n = 10000000
 n = 10000000
 for i in range(5):
     if i == 0:
@@ -77,9 +79,13 @@ for i in range(5):
         h = capitalization(companies, i)
         arr = evgeniy(h)
         s = sale(b, i)
+        money.append(s)
     else:
         h = capitalization(companies, i)
         arr = evgeniy(h)
         s = sale(b, i)
+        money.append(s)
         b = buy(arr, companies, n, i)
+money_file.write(" ".join(list(map(str, money)))+"\n")
+money_file.close()
 print(s)
