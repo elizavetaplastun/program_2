@@ -32,7 +32,54 @@ while True:
         companies_2016[company][0] = int(n)
         for i in range(5):
             companies_2016[company][1].append(list(map(float, file_2016.readline()[:-1].split())))
-print(companies)
-print(companies_2016)
 file.close()
 file_2016.close()
+
+def capitalization(companies, month):
+    companies2 = {}
+    for company in companies:
+        companies2[company] = companies[company][0] * companies[company][1][month][-1]
+    return companies2
+
+def evgeniy(companies2):
+    total = 0
+    for i in companies2.values():
+        total += i
+    k = []
+    for i in companies2.values():
+        k.append(i / total)
+    return k
+
+def buy(k, companies, money, month):
+    actions = {}
+    i = 0
+    for company in companies.keys():
+        actions[company] = (money * k[i])/companies[company][1][month][0]
+        i += 1
+    return actions
+
+def sale(arr_buy, month):
+    names = list(arr_buy.keys())
+    actions = list(arr_buy.values())
+    n = 0
+    for i in range(len(names)):
+        n += companies[names[i]][1][month][0] * actions[i]
+    return n
+
+
+n = 10000000
+for i in range(5):
+    if i == 0:
+        h = capitalization(companies_2016, -1)
+        arr = evgeniy(h)
+        b = buy(arr, companies, n, i)
+    elif i == 4:
+        h = capitalization(companies, i)
+        arr = evgeniy(h)
+        s = sale(b, i)
+    else:
+        h = capitalization(companies, i)
+        arr = evgeniy(h)
+        s = sale(b, i)
+        b = buy(arr, companies, n, i)
+print(s)

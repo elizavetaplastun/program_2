@@ -163,7 +163,7 @@ n = 10000000
 for i in range(5):
     if i == 0:
         h = corel(companies_2016, companies_names)
-        arr = anatol(h, companies_names, 1, 4)
+        arr = anatol(h, companies_names, 0, 4)
         b = buy(arr, n, i)
     elif i == 4:
         h = corel_second(companies, companies_names, i)
