@@ -106,7 +106,7 @@ def corel_second(companies, company_names, day):
     return corel_matrix
 
 
-def anatol(corel_matrix, names):
+def anatol(corel_matrix, names, day1, day2):
     for i in range(len(corel_matrix)):
         for j in range(len(corel_matrix)):
             if corel_matrix[i][j] == None:
@@ -132,13 +132,12 @@ def anatol(corel_matrix, names):
             names_c.append(k[1])
         if k[2] not in names_c:
             names_c.append(k[2])
-    names_c
     for i in range(len(names)):
         for j in range(len(names_c)):
             if i == names_c[j]:
                 names_c[j] = names[i]
     for company in names_c:
-        if companies[company][1][0][0] > companies[company][1][-1][-1]:
+        if companies[company][1][day1][0] > companies[company][1][day2][-1]:
             names_c.remove(company)
     return names_c[:6]
 
@@ -164,15 +163,15 @@ n = 10000000
 for i in range(5):
     if i == 0:
         h = corel(companies_2016, companies_names)
-        arr = anatol(h, companies_names)
+        arr = anatol(h, companies_names, 1, 4)
         b = buy(arr, n, i)
     elif i == 4:
         h = corel_second(companies, companies_names, i)
-        arr = anatol(h, companies_names)
+        arr = anatol(h, companies_names, i, i)
         s = sale(b, i)
     else:
         h = corel_second(companies, companies_names, i)
-        arr = anatol(h, companies_names)
+        arr = anatol(h, companies_names, i, i)
         s = sale(b, i)
         b = buy(arr, s, i)
 print(s)
