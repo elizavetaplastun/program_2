@@ -20,7 +20,7 @@ while True:
     for j in range(len(companies)):
         company = file.readline()[:-1]
         n = file.readline()[:-1]
-        companies[company][0] = n
+        companies[company][0] = int(n)
         for i in range(5):
             companies[company][1].append(list(map(float, file.readline()[:-1].split())))
 while True:
@@ -29,7 +29,7 @@ while True:
     for j in range(len(companies_2016)):
         company = file_2016.readline()[:-1]
         n = file_2016.readline()[:-1]
-        companies_2016[company][0] = n
+        companies_2016[company][0] = int(n)
         for i in range(5):
             companies_2016[company][1].append(list(map(float, file_2016.readline()[:-1].split())))
 print(companies)
