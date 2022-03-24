@@ -40,7 +40,7 @@ for company in companies.keys():
         for day in data:
             if day[2] is not None:
                 a.append(day[2])
-                if len(a) == 10:
+                if len(a) == 30:
                     companies[company][1].append(a)
                     break
 
