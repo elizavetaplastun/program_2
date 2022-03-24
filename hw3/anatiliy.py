@@ -16,7 +16,6 @@ for company in companies.keys():
     companies_names.append(company)
 file = open("companies", "r")
 file_2016 = open("companies_2016", "r")
-corel_2016 = [[None for j in range(len(companies.keys()))] for k in range(len(companies.keys()))]
 while True:
     if not file.readline():
         break
@@ -40,7 +39,8 @@ file.close()
 file_2016.close()
 
 
-def corel(companies, corel_matrix, company_names):
+def corel(companies, company_names):
+    corel_matrix = [[None for j in range(len(companies.keys()))] for k in range(len(companies.keys()))]
     for i in range(len(companies.keys())):
         for j in range(len(companies.keys())):
             if i == j:
@@ -73,6 +73,39 @@ def corel(companies, corel_matrix, company_names):
     return corel_matrix
 
 
+def corel_second(companies, company_names, day):
+    corel_matrix = [[None for j in range(len(companies.keys()))] for k in range(len(companies.keys()))]
+    for i in range(len(companies.keys())):
+        for j in range(len(companies.keys())):
+            if i == j:
+                corel_matrix[i][j] = None
+            else:
+                company_name_1 = company_names[i]
+                company_name_2 = company_names[j]
+                arr = []
+                actions_1 = companies[company_name_1][1][day]
+                actions_2 = companies[company_name_2][1][day]
+                n = len(actions_1)
+                xy = 0
+                for k in range(n):
+                    xy += actions_1[k] * actions_2[k]
+                x2 = 0
+                for k in range(n):
+                    x2 += actions_1[k] ** 2
+                y2 = 0
+                for k in range(n):
+                    y2 += actions_1[k] ** 2
+                x = sum(actions_1)
+                y = sum(actions_2)
+                r = (n * xy - x * y) / (((n * x2 - x ** 2) ** 0.5) * ((n * y2 - y ** 2) ** 0.5))
+                if type(r) != complex:
+                    arr.append(r)
+                if len(arr) != 0 and sum(arr):
+                    corel_matrix[i][j] = sum(arr) / len(arr)
+
+    return corel_matrix
+
+
 def anatol(corel_matrix, names):
     for i in range(len(corel_matrix)):
         for j in range(len(corel_matrix)):
@@ -80,7 +113,7 @@ def anatol(corel_matrix, names):
                 corel_matrix[i][j] = 900000
             if corel_matrix[i][j] < 0:
                 corel_matrix[i][j] *= -1
-    companies_names = []
+    names_c = []
     min_arr = []
     arr = []
     for i in range(len(corel_matrix)):
@@ -95,19 +128,19 @@ def anatol(corel_matrix, names):
             if n == i[0]:
                 arr_2.append(i)
     for k in arr_2:
-        if k[1] not in companies_names:
-            companies_names.append(k[1])
-        if k[2] not in companies_names:
-            companies_names.append(k[2])
-    companies_names.sort()
+        if k[1] not in names_c:
+            names_c.append(k[1])
+        if k[2] not in names_c:
+            names_c.append(k[2])
+    names_c
     for i in range(len(names)):
-        for j in range(len(companies_names)):
-            if i == companies_names[j]:
-                companies_names[j] = names[i]
-    for company in companies_names:
+        for j in range(len(names_c)):
+            if i == names_c[j]:
+                names_c[j] = names[i]
+    for company in names_c:
         if companies[company][1][0][0] > companies[company][1][-1][-1]:
-            companies_names.remove(company)
-    return companies_names[:6]
+            names_c.remove(company)
+    return names_c[:6]
 
 
 def buy(arr, n, count):
@@ -130,15 +163,15 @@ def sale(arr_buy, day):
 n = 10000000
 for i in range(5):
     if i == 0:
-        h = corel(companies_2016, corel_2016, companies_names)
+        h = corel(companies_2016, companies_names)
         arr = anatol(h, companies_names)
         b = buy(arr, n, i)
     elif i == 4:
-        h = corel(companies_2016, corel_2016, companies_names)
+        h = corel_second(companies, companies_names, i)
         arr = anatol(h, companies_names)
         s = sale(b, i)
     else:
-        h = corel(companies_2016, corel_2016, companies_names)
+        h = corel_second(companies, companies_names, i)
         arr = anatol(h, companies_names)
         s = sale(b, i)
         b = buy(arr, s, i)
