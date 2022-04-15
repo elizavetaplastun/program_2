@@ -1,6 +1,3 @@
-#! /usr/bin/env python2.7
-# -*- coding: utf-8 -*-
-
 import yfinance as yf
 import matplotlib.pyplot as plt
 from pandas import DataFrame
@@ -13,11 +10,12 @@ import datetime as dt
 import pandas as pd
 import math
 
-tikers = ["YNDX.ME", "ALRS", "POLY", "YNDX", "MSFT", "AAPL", "GAZP.ME", "SBER.me", "SNGS.me", "RTKM.me", "PIKK.me",
+tikers = ["YNDX.ME", "ALRS", "POLY", "YNDX", "MSFT", "AAPL", "GAZP.ME", "SBER.me", "SNGS.me", "RT-KM.me", "PICK.me",
           "DSKY.me", "ONE", "DFK", "DRI", "TSLA", "TTLK.ME", "LSRG.ME", "MSTT.ME", "ввести вручную"]
-vost = ["винзорирование", "линейная аппроксимация"]
+vost = ["винзорирование", "линейная аппроксимация", "ничего не выбрано"]
 
-smothing = ["взвешенный метод скользящего среднего", "метод скользящего среднего со скользящим окном наблюдения"]
+smothing = ["взвешенный метод скользящего среднего", "метод скользящего среднего со скользящим окном наблюдения",
+            "ничего не выбрано"]
 
 
 def dowload_data(start, finish, company):
@@ -79,7 +77,7 @@ def recovering_1(data):
 def line(x_1, y_1, x_2, y_2):
     k = (y_1 - y_2) / (x_1 - x_2)
     b = y_2 - k * x_2
-    return (k, b)
+    return [k, b]
 
 
 def recovering_2(date):
@@ -170,8 +168,12 @@ def clicked():
         conv.get_tk_widget().destroy()
         if_graf = False
     company = combo.get()
-    n = float(nnn.get())
-    k = float(kkk.get())
+    n = nnn.get()
+    k = kkk.get()
+    if n != "":
+        n = float(n)
+    if k != "":
+        k = int(k)
     start_time = time_start.get()
     finish_time = time_finish.get()
     smoth = combo2.get()
@@ -183,15 +185,16 @@ def clicked():
         data = reformat_data_file(data)
         if recover == vost[0]:
             data = recovering_1(data)
-        else:
+        elif recover == vost[1]:
             data = recovering_2(data)
-        if 0 <= n <= 1:
-            if smoth == smothing[0]:
-                data = smoothing_2(data, k, n)
+        if smoth != smothing[2]:
+            if 0 <= n <= 1:
+                if smoth == smothing[0]:
+                    data = smoothing_2(data, k, n)
+                else:
+                    data = smoothing_1(data, n)
             else:
-                data = smoothing_1(data, n)
-        else:
-            lbl4.configure(text="коэффицент не принадлежит диапазону [0,1]")
+                lbl4.configure(text="коэффицент не принадлежит диапазону [0,1]")
         conv = FigureCanvasTkAgg(figure2, str4)
         conv.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
         df2 = DataFrame(data, columns=['year', 'action'])
@@ -221,7 +224,7 @@ str1.pack()
 str2.pack()
 str3.pack()
 str4.pack()
-window.title("СОСИИИИИИИТЕЕЕЕ ЧЛЕЕЕНН ВЫ НИИИКОГДАААА НЕ ВСТАНЕТЕЕЕЕЕ С КОЛЛЛЕНННН")
+window.title("")
 canvas1 = None
 window.geometry('1000x700')
 lbl = Label(str1, text="", fg="red")
