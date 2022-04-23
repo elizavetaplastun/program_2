@@ -10,7 +10,7 @@ import datetime as dt
 import pandas as pd
 import math
 
-tikers = ["YNDX.ME", "ALRS", "POLY", "YNDX", "MSFT", "AAPL", "GAZP.ME", "SBER.me", "SNGS.me", "RT-KM.me", "PICK.me",
+tikers = ["YNDX.ME", "ALRS", "POLY", "YNDX", "MSFT", "AAPL", "GAZP.ME", "SBER.me", "SNGS.me", "RTKM.me", "PICK.me",
           "DSKY.me", "ONE", "DFK", "DRI", "TSLA", "TTLK.ME", "LSRG.ME", "MSTT.ME", "ввести вручную"]
 vost = ["винзорирование", "линейная аппроксимация", "ничего не выбрано"]
 
@@ -187,6 +187,9 @@ def clicked():
             data = recovering_1(data)
         elif recover == vost[1]:
             data = recovering_2(data)
+        df2 = DataFrame(data, columns=['year', 'action'])
+        df2 = df2[['year', 'action']].groupby('year').sum()
+        df2.plot(kind='line', legend=True, ax=ax2, fontsize=10)
         if smoth != smothing[2]:
             if 0 <= n <= 1:
                 if smoth == smothing[0]:
@@ -204,7 +207,6 @@ def clicked():
         if_graf = True
     else:
         lbl.configure(text="неправильный формат даты")
-        conv.get_tk_widget().destroy()
         if_graf = False
 
 
@@ -228,7 +230,7 @@ window.title("")
 canvas1 = None
 window.geometry('1000x700')
 lbl = Label(str1, text="", fg="red")
-lbl.grid(column=1, row=5)
+lbl.grid(column=1, row=6)
 start = Label(str1, text="введите временные рамки формата 'ГГГГ-ММ-ДД' начало - конец")
 start.grid(column=0, row=3)
 time_start = Entry(str1, width=20)
@@ -254,7 +256,7 @@ lbl1.grid(column=0, row=1)
 lbl2 = Label(str1, text="выберите способ сглаживания данных")
 lbl2.grid(column=0, row=2)
 lbl4 = Label(str1, text="", fg="red")
-lbl4.grid(column=0, row=5)
+lbl4.grid(column=0, row=6)
 tiker = Label(str1, text="укажите тикер компании")
 tiker.grid(column=0, row=0)
 nnn = Entry(str1, width=20)
