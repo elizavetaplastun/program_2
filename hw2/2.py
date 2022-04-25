@@ -7,7 +7,6 @@ for arr in matrix:
     for i in range(n):
         arr[i] = random.randint(1, 30)
 
-print(matrix)
 
 
 def index_for_del(l):
@@ -85,7 +84,22 @@ def axb(x, y):
     return [a, b]
 
 
+x = [2.068185862,
+     2.005180513,
+     1.977723605,
+     1.960946196,
+     1.951337519,
+     1.934498451,
+     1.921166051]
+y = [-0.5245003308,
+     -0.3490986704,
+     -0.2251261091,
+     -0.1294595885,
+     -0.05180010856,
+     0.01334546499,
+     0.06925534552]
 a, b = axb(x, y)
+print(a, b)
 del_dots = {}
 print(f" прямая - y={a}x+{b}")
 y_coordinates = []

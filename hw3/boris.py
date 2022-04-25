@@ -106,7 +106,7 @@ def corel_second(companies, company_names, day):
     return corel_matrix
 
 
-def anatol(corel_matrix, names, day1, day2):
+def borya(corel_matrix, names, day1, day2):
     for i in range(len(corel_matrix)):
         for j in range(len(corel_matrix)):
             if corel_matrix[i][j] == None:
@@ -164,19 +164,19 @@ n = 10000000
 for i in range(5):
     if i == 0:
         h = corel(companies_2016, companies_names)
-        arr = anatol(h, companies_names, 0, 4)
+        arr = borya(h, companies_names, 0, 4)
         b = buy(arr, n, i)
     elif i == 4:
         h = corel_second(companies, companies_names, i)
-        arr = anatol(h, companies_names, i, i)
+        arr = borya(h, companies_names, i, i)
         s = sale(b, i)
         money.append(s)
     else:
         h = corel_second(companies, companies_names, i)
-        arr = anatol(h, companies_names, i, i)
+        arr = borya(h, companies_names, i, i)
         s = sale(b, i)
         money.append(s)
         b = buy(arr, s, i)
-money_file.write(" ".join(list(map(str, money)))+"\n")
+money_file.write(" ".join(list(map(str, money))) + "\n")
 money_file.close()
 print(s)
